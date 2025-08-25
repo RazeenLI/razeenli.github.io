@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" role="img" aria-label="RL logo (dark)">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%"  stop-color="#059669"/>
+      <stop offset="100%" stop-color="#0284c7"/>
+    </linearGradient>
+
+    <radialGradient id="v" cx="50%" cy="40%" r="65%">
+      <stop offset="0%" stop-color="rgba(255,255,255,0.10)"/>
+      <stop offset="100%" stop-color="rgba(0,0,0,0)"/>
+    </radialGradient>
+
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="6" flood-opacity="0.35"/>
+    </filter>
+
+    <style>
+      .mark { font: 800 112px/1 "Playfair Display","Libre Baskerville","Garamond","Times New Roman",serif; letter-spacing:-4px; }
+    </style>
+  </defs>
+
+  <rect width="256" height="256" fill="#0b0c10"/>
+  <circle cx="128" cy="128" r="112" fill="url(#g)" filter="url(#shadow)"/>
+  <circle cx="128" cy="128" r="112" fill="url(#v)"/>
+  <circle cx="128" cy="128" r="108" fill="none" stroke="rgba(0,0,0,0.35)" stroke-width="2"/>
+  <text class="mark" x="50%" y="54%" text-anchor="middle" fill="#0b0c10" dominant-baseline="middle">RL</text>
+</svg>

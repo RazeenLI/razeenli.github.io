@@ -3,146 +3,355 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Runze Li — Personal Site</title>
-  <meta name="description" content="Runze Li — PhD Candidate at UNSW Sydney. Time-series Imputation · Graph ML · AI for Biology." />
-  <meta name="theme-color" content="#38bdf8" />
+  <title>Runze Li — PhD, CSE @ UNSW</title>
+  <link rel="icon" href="assets/rl-logo-light.svg" media="(prefers-color-scheme: light)">
+  <link rel="icon" href="assets/rl-logo-dark.svg"  media="(prefers-color-scheme: dark)">
+  <meta name="description" content="Personal academic profile of a PhD candidate in the School of Computer Science and Engineering, UNSW Sydney." />
   <style>
-    :root{
-      --bg:#f6fbff; --panel:#ffffff; --text:#0f172a; --muted:#475569; --border:#e2e8f0;
-      --accent:#38bdf8; --accent-2:#34d399; --shadow:0 10px 30px rgba(2,6,23,0.06);
-      --sidebar-w: 300px;
-    }
-    @media (prefers-color-scheme: dark){
-      :root{ --bg:#0b1020; --panel:#11162a; --text:#e6edf3; --muted:#9aa9b7; --border:#1f2a44;
-             --accent:#38bdf8; --accent-2:#34d399; --shadow:0 10px 30px rgba(0,0,0,0.25); }
-    }
-    *{box-sizing:border-box} html,body{height:100%}
-    body{margin:0; background:var(--bg); color:var(--text); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
-    a{color:var(--accent); text-decoration:none} a:hover{text-decoration:underline}
-    .layout{display:flex; min-height:100vh}
-    /* Sidebar (from fragment) */
-    .sidebar{ position:sticky; top:0; align-self:flex-start; width:var(--sidebar-w); min-height:100vh; padding:28px 22px;
-      border-right:1px solid var(--border); background:linear-gradient(180deg, color-mix(in srgb, var(--panel) 92%, white), var(--panel)); }
-    .brand{display:flex; align-items:center; gap:12px; margin-bottom:18px}
-    .avatar{width:84px; height:84px; border-radius:16px; object-fit:cover; border:1px solid var(--border); box-shadow:var(--shadow)}
-    h1{font-size:22px; margin:0}
-    .role{color:var(--muted); font-size:14px; margin-top:4px}
-    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
-    .chip{display:inline-flex; align-items:center; gap:8px; padding:7px 10px; border-radius:999px; border:1px solid var(--border); background:var(--panel); font-weight:600}
-    .accent{background:linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:800}
+    :root { --radius: 14px; }
 
-    /* Main panel */
-    .main{flex:1; display:flex; flex-direction:column; min-width:0;}
-    .header{
-      position:sticky; top:0; z-index:10;
-      backdrop-filter:saturate(180%) blur(8px);
-      background:color-mix(in srgb, var(--bg) 85%, transparent);
-      border-bottom:1px solid var(--border);
+    /* LIGHT (Day) */
+    :root[data-theme="light"] {
+      --bg: #f8fafc;            /* slate-50 */
+      --panel: #ffffff;         /* white */
+      --muted: #4b5563;         /* gray-600 */
+      --text: #0f172a;          /* slate-900 */
+      --border: #e5e7eb;        /* gray-200 */
+      --chip-bg: #f1f5f9;       /* slate-100 */
+      --accent1: #34d399;       /* emerald-400 */
+      --accent2: #38bdf8;       /* sky-400 */
     }
-    .nav{max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:10px; padding:10px 20px}
-    .nav a{padding:8px 12px; border-radius:10px; color:var(--muted); font-weight:700}
-    .nav a:hover{background:var(--panel); color:var(--text); text-decoration:none; border:1px solid var(--border)}
-    .content{flex:1; padding:26px 24px 40px}
-    .wrap{max-width:1100px; margin:0 auto}
-    .card{background:var(--panel); border:1px solid var(--border); padding:18px; border-radius:16px; box-shadow:var(--shadow)}
-    .chip svg { width: 16px; height: 16px; }
 
-    @media (max-width: 920px){
-      :root{ --sidebar-w: 100%; }
-      .layout{flex-direction:column}
-      .sidebar{position:static; min-height:auto; border-right:none; border-bottom:1px solid var(--border)}
+    /* DARK (Night) */
+    :root[data-theme="dark"] {
+      --bg: #0b0c10;
+      --panel: #111218;
+      --muted: #8086a3;
+      --text: #e6e9f2;
+      --border: #202433;
+      --chip-bg: #171a22;
+      --accent1: #059669;       /* emerald-600 (darker pair of #34d399) */
+      --accent2: #0284c7;       /* sky-600 (darker pair of #38bdf8) */
+    }
+
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+        Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent2); outline-offset: 2px; }
+
+    .container { display: flex; min-height: 100vh; gap: 0; }
+
+    /* Sidebar */
+    .sidebar {
+      position: sticky; top: 0; align-self: flex-start;
+      width: 300px; min-width: 260px; max-width: 340px;
+      padding: 28px 22px;
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      height: 100vh; overflow: auto;
+    }
+    .brand { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
+    .avatar { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); background: var(--chip-bg); }
+    .name { font-size: 1.25rem; font-weight: 700; letter-spacing: .2px; }
+    .role { font-size: .95rem; color: var(--muted); }
+    .accent { background: linear-gradient(90deg, var(--accent1), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; font-weight: 700;             /* 可选，加粗更显眼 */
+    }
+
+
+    .chips { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 18px; }
+    .chip { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--chip-bg); border: 1px solid var(--border); transition: transform .12s ease, border-color .12s ease, background .12s ease; font-size: .95rem; }
+    .chip:hover { transform: translateY(-1px); border-color: color-mix(in hsl, var(--accent2) 45%, var(--border)); background: color-mix(in hsl, var(--chip-bg) 80%, var(--accent2)); }
+    .chip svg { width: 18px; height: 18px; flex: 0 0 auto; opacity: .9; color: var(--accent2); }
+
+    .sidebar-section { margin-top: 26px; border-top: 1px dashed var(--border); padding-top: 18px; }
+    .sidebar-section h3 { margin: 0 0 10px; font-size: .9rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
+    .sidebar p.small { margin: 0; font-size: .9rem; color: var(--muted); }
+
+    /* Main */
+    .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+
+    .header { position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(1.1) blur(10px); background: color-mix(in hsl, var(--panel) 88%, transparent); border-bottom: 1px solid var(--border); }
+
+    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 16px 22px; }
+    .site-title { font-size: 1rem; font-weight: 600; letter-spacing: .2px; opacity: .9; }
+
+    .nav { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+    .tab-btn { appearance: none; border: 1px solid var(--border); background: color-mix(in hsl, var(--panel) 90%, transparent); color: inherit; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: .95rem; letter-spacing: .2px; transition: transform .08s ease, background .12s ease, border-color .12s ease; }
+    .tab-btn:hover { transform: translateY(-1px); background: color-mix(in hsl, var(--panel) 75%, var(--accent2)); }
+    .tab-btn[aria-selected="true"], .tab-btn.active { background: color-mix(in hsl, var(--panel) 60%, var(--accent2)); border-color: var(--accent2); box-shadow: inset 0 1px 0 color-mix(in hsl, var(--accent2) 30%, transparent); color: var(--text); }
+
+    .theme-toggle { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: color-mix(in hsl, var(--panel) 90%, transparent); padding: 8px 10px; border-radius: 10px; cursor: pointer; }
+    .theme-toggle:hover { background: color-mix(in hsl, var(--panel) 75%, var(--accent1)); border-color: var(--accent1); }
+    .theme-toggle svg { width: 18px; height: 18px; }
+    :root[data-theme="light"] .icon-moon { display: none; }
+    :root[data-theme="dark"] .icon-sun { display: none; }
+
+    .content { padding: 24px 28px 40px; max-width: 1100px; }
+
+    h2 svg { vertical-align: middle; align-items: center; width: 1em; height: 1em;}
+
+
+    /* Panels */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* Typography */
+    h1 { font-size: 1.6rem; margin: 10px 0 14px; }
+    h2 { font-size: 1.25rem; margin: 28px 0 12px; border-bottom: 1px dashed var(--border); padding-bottom: 8px; }
+    h3 { font-size: 1.05rem; margin: 18px 0 8px; }
+    p { margin: 8px 0 12px; }
+    ul { margin: 8px 0 18px 1.2rem; padding: 0; }
+    li { margin: 6px 0; }
+    .muted { color: var(--muted); }
+    .tag { display: inline-block; padding: 2px 8px; border: 1px solid var(--border); border-radius: 999px; font-size: .8rem; background: color-mix(in hsl, var(--panel) 80%, var(--accent2)); }
+
+    /* Cards & lists */
+    .pub-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+    .pub-item { padding: 14px 14px; border: 1px solid var(--border); border-radius: 14px; background: var(--panel); }
+    .pub-item .title { font-weight: 600; }
+    .pub-item .meta { font-size: .92rem; color: var(--muted); margin-top: 4px; }
+
+    .project-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+    .card { padding: 14px; border: 1px solid var(--border); border-radius: 14px; background: var(--panel); }
+
+    /* Footer */
+    footer { border-top: 1px solid var(--border); color: var(--muted); padding: 16px 22px; font-size: .9rem; }
+
+    /* Mobile */
+    .mobile-toggle { display: none; }
+    @media (max-width: 980px) {
+      .container { flex-direction: column; }
+      .sidebar { position: relative; width: 100%; height: auto; }
+      .mobile-toggle { display: inline-flex; align-items: center; gap: 8px; background: color-mix(in hsl, var(--panel) 90%, transparent); border: 1px solid var(--border); padding: 8px 10px; border-radius: 10px; cursor: pointer; }
+      .project-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <div class="layout">
-    <!-- LEFT: sidebar fragment will be injected here -->
-    <div id="sidebar-slot"></div>
+  <div class="container">
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <img class="avatar" src="assets/people/runze-li.jpg" alt="Profile portrait" />
+        <div class="name">Runze Li<span class="accent"> · RL</span></div>
+        <div class="role">PhD Candidate · School of Computer Science & Engineering · UNSW Sydney</div>
 
-    <!-- RIGHT: main area -->
-    <div class="main">
-      <!-- header bar fragment -->
-      <div id="header-slot"></div>
+        <div class="chips" aria-label="Profile links">
+          <!-- Position -->
+          <a class="chip" href="https://www.google.com/maps/place/School+of+Computer+Science+and+Engineering/@-33.9188705,151.2287617,18z/data=!3m1!5s0x6b12b18a49a4eefb:0x5e0be1a85a0eca0d!4m10!1m2!2m1!1sK17+Kensington!3m6!1s0x15b83a85cd43ded:0xae9b690cb686f09f!8m2!3d-33.9188705!4d151.2309733!15sCg5LMTcgS2Vuc2luZ3RvbpIBFXVuaXZlcnNpdHlfZGVwYXJ0bWVudOABAA!16s%2Fm%2F0g5sp1g?entry=ttu&g_ep=EgoyMDI1MDgxOS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener" title="Position">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor">
+              <defs>
+              <linearGradient id="h2grad" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="var(--accent1)" />
+                <stop offset="100%" stop-color="var(--accent2)" />
+              </linearGradient>
+            </defs>
+            <path fill="url(#h2grad)" d="M18.364 17.364L12 23.7279L5.63604 17.364C2.12132 13.8492 2.12132 8.15076 5.63604 4.63604C9.15076 1.12132 14.8492 1.12132 18.364 4.63604C21.8787 8.15076 21.8787 13.8492 18.364 17.364ZM12 13C13.1046 13 14 12.1046 14 11C14 9.89543 13.1046 9 12 9C10.8954 9 10 9.89543 10 11C10 12.1046 10.8954 13 12 13Z"></path>
+          </svg>
+            <!-- <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M10 2h4a2 2 0 0 1 2 2v2h2a2 2 0 0 1 2 2v3h-2V8h-4v2h-4V8H6v3H4V8a2 2 0 0 1 2-2h2V4a2 2 0 0 1 2-2Zm0 4h4V4h-4v2ZM2 13a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-5Zm2 0v5h16v-5H4Z"/></svg> -->
+            <span>K17, Kensington NSW 2033</span>
+          </a>
+          <!-- Email -->
+          <a class="chip" href="mailto:runze.li1@unsw.edu.au" title="Email">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor" ><path fill="url(#h2grad)" d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4-8 5L4 8V6l8 5 8-5v2Z"/></svg>
+            <span>Email</span>
+          </a>
+          <!-- GitHub -->
+          <a class="chip" href="https://github.com/RazeenLI" target="_blank" rel="noopener" title="GitHub">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path fill="url(#h2grad)" d="M12.001 2C6.47598 2 2.00098 6.475 2.00098 12C2.00098 16.425 4.86348 20.1625 8.83848 21.4875C9.33848 21.575 9.52598 21.275 9.52598 21.0125C9.52598 20.775 9.51348 19.9875 9.51348 19.15C7.00098 19.6125 6.35098 18.5375 6.15098 17.975C6.03848 17.6875 5.55098 16.8 5.12598 16.5625C4.77598 16.375 4.27598 15.9125 5.11348 15.9C5.90098 15.8875 6.46348 16.625 6.65098 16.925C7.55098 18.4375 8.98848 18.0125 9.56348 17.75C9.65098 17.1 9.91348 16.6625 10.201 16.4125C7.97598 16.1625 5.65098 15.3 5.65098 11.475C5.65098 10.3875 6.03848 9.4875 6.67598 8.7875C6.57598 8.5375 6.22598 7.5125 6.77598 6.1375C6.77598 6.1375 7.61348 5.875 9.52598 7.1625C10.326 6.9375 11.176 6.825 12.026 6.825C12.876 6.825 13.726 6.9375 14.526 7.1625C16.4385 5.8625 17.276 6.1375 17.276 6.1375C17.826 7.5125 17.476 8.5375 17.376 8.7875C18.0135 9.4875 18.401 10.375 18.401 11.475C18.401 15.3125 16.0635 16.1625 13.8385 16.4125C14.201 16.725 14.5135 17.325 14.5135 18.2625C14.5135 19.6 14.501 20.675 14.501 21.0125C14.501 21.275 14.6885 21.5875 15.1885 21.4875C19.259 20.1133 21.9999 16.2963 22.001 12C22.001 6.475 17.526 2 12.001 2Z"></path></svg>
+            <!-- <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 .5A11.5 11.5 0 0 0 .5 12.4c0 5.26 3.43 9.72 8.19 11.29.6.11.82-.27.82-.58v-2.2c-3.33.74-4.03-1.61-4.03-1.61-.55-1.42-1.35-1.8-1.35-1.8-1.1-.76.08-.74.08-.74 1.22.09 1.86 1.27 1.86 1.27 1.08 1.85 2.83 1.32 3.52 1.01.11-.8.42-1.33.76-1.64-2.66-.31-5.46-1.37-5.46-6.1 0-1.35.47-2.44 1.26-3.3-.13-.31-.55-1.58.12-3.29 0 0 1.03-.34 3.38 1.26a11.7 11.7 0 0 1 6.16 0c2.34-1.6 3.37-1.26 3.37-1.26.68 1.71.26 2.98.13 3.29.79.86 1.25 1.95 1.25 3.3 0 4.74-2.8 5.78-5.47 6.1.43.39.81 1.16.81 2.35v3.48c0 .32.22.7.83.58A11.5 11.5 0 0 0 23.5 12.4 11.5 11.5 0 0 0 12 .5Z"/></svg> -->
+            <span>Github</span>
+          </a>
+          <!-- Linkedin -->
+          <a class="chip" href="https://www.linkedin.com/in/runze-razeen-li/" target="_blank" rel="noopener" title="Google Scholar">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path fill="url(#h2grad)" d="M18.3362 18.339H15.6707V14.1622C15.6707 13.1662 15.6505 11.8845 14.2817 11.8845C12.892 11.8845 12.6797 12.9683 12.6797 14.0887V18.339H10.0142V9.75H12.5747V10.9207H12.6092C12.967 10.2457 13.837 9.53325 15.1367 9.53325C17.8375 9.53325 18.337 11.3108 18.337 13.6245V18.339H18.3362ZM7.00373 8.57475C6.14573 8.57475 5.45648 7.88025 5.45648 7.026C5.45648 6.1725 6.14648 5.47875 7.00373 5.47875C7.85873 5.47875 8.55173 6.1725 8.55173 7.026C8.55173 7.88025 7.85798 8.57475 7.00373 8.57475ZM8.34023 18.339H5.66723V9.75H8.34023V18.339ZM19.6697 3H4.32923C3.59498 3 3.00098 3.5805 3.00098 4.29675V19.7033C3.00098 20.4202 3.59498 21 4.32923 21H19.6675C20.401 21 21.001 20.4202 21.001 19.7033V4.29675C21.001 3.5805 20.401 3 19.6675 3H19.6697Z"></path></svg>
+            <span>Linkedin</span>
+          </a>
+          <!-- Scholar -->
+          <a class="chip" href="https://scholar.google.com/" target="_blank" rel="noopener" title="Google Scholar">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" fill="currentColor"><path fill="url(#h2grad)" d="m22.75 8.3076 -9.7954 -4.24412L3.15912 8.3076v7.2358L1.25 17.4525v2.0532l2.65909 2.6591 2.65909 -2.6591v-2.0532l-1.90906 -1.909v-4.9763l8.29548 3.5942L22.75 9.91727V8.3076ZM6.87273 13.1568l0.00699 2.8244 6.07358 2.847 6.0841 -2.8473 -0.0007 -2.8242 -5.784 2.506 -0.2981 0.1292 -0.2982 -0.1292 -5.78367 -2.5059Z"/></svg>
+            <!-- <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2 3 7l9 5 9-5-9-5Zm0 7L5.5 7 12 3l6.5 4L12 9Zm-9 6 9 5 9-5-3.5-2L12 16l-5.5-3L3 15Z"/></svg> -->
+            <span>Google Scholar</span>
+          </a>
+        </div>
 
-      <!-- content area -->
-      <div id="content-slot" class="content">
-        <div class="wrap">
-          <section id="home" class="card">
-            <h2 style="margin-top:0">About</h2>
-            <p>I build models for <strong>time-series imputation</strong>, explore <strong>graph ML</strong> and <strong>AI for biology</strong>, and care about clean, reproducible research code.</p>
-          </section>
-          <!-- <section id="contact" style="margin-top:24px" class="card">
-            <h2 style="margin-top:0">Contact</h2>
-            <p>Email: <a href="mailto:runze.li1@unsw.edu.au">z5286712@unsw.edu.au</a></p>
-            <p>GitHub: <a href="https://github.com/RazeenLI" target="_blank" rel="noopener">github.com/your-github</a></p>
-            <p>Google Scholar: <a href="https://scholar.google.com/citations?user=YOURID" target="_blank" rel="noopener">scholar profile</a></p>
-          </section> -->
+        <div class="sidebar-section">
+          <h3>Contact</h3>
+          <p class="small">School of Computer Science & Engineering<br/>UNSW Sydney, NSW 2052, Australia</p>
         </div>
       </div>
-    </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <header class="header" role="banner">
+        <div class="toolbar">
+          <span class="site-title"><span class="accent">Runze Li</span> · Academic Profile</span>
+          <div class="nav" role="tablist" aria-label="Primary">
+            <button class="tab-btn" role="tab" aria-controls="home" aria-selected="true" data-tab="home">Home</button>
+            <button class="tab-btn" role="tab" aria-controls="publications" aria-selected="false" data-tab="publications">Publications</button>
+            <button class="tab-btn" role="tab" aria-controls="projects" aria-selected="false" data-tab="projects">Projects</button>
+            <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+              <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#h2grad)"  d="M6.76 4.84 5.34 3.42 3.92 4.84l1.42 1.42 1.42-1.42Zm10.48 14.32 1.42 1.42 1.42-1.42-1.42-1.42-1.42 1.42ZM12 4V2h-0v2h0Zm0 18v-2h0v2h0ZM4 12H2v0h2v0Zm18 0h-2v0h2v0ZM6.76 19.16l-1.42 1.42 1.42 1.42 1.42-1.42-1.42-1.42Zm10.48-14.32 1.42-1.42-1.42-1.42-1.42 1.42 1.42 1.42ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"/></svg>
+              <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#h2grad)" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+            </button>
+            <!-- <button class="mobile-toggle" id="toggleSidebar" title="Toggle sidebar" aria-label="Toggle sidebar">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#h2grad)" d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
+              Sidebar
+            </button> -->
+          </div>
+        </div>
+      </header>
+
+      <section class="content">
+        <!-- Home Panel -->
+        <section id="home" class="tab-panel active" role="tabpanel" aria-labelledby="tab-home">
+          <h1>Welcome</h1>
+          <p class="muted">I am a PhD candidate in the School of Computer Science and Engineering at the University of New South Wales (UNSW Sydney). My research interests include machine learning for time-series, graph algorithms, and AI for biology.</p>
+
+          <!-- <h2>About Me</h2>
+          <p>Short bio here. Add a few sentences about your research focus, current advisors, and open collaboration interests. Keep it succinct and academic.</p> -->
+
+          <h2>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path fill="url(#h2grad)" d="M12 23C7.85786 23 4.5 19.6421 4.5 15.5C4.5 13.3462 5.40786 11.4045 6.86179 10.0366C8.20403 8.77375 11.5 6.49951 11 1.5C17 5.5 20 9.5 14 15.5C15 15.5 16.5 15.5 19 13.0296C19.2697 13.8032 19.5 14.6345 19.5 15.5C19.5 19.6421 16.1421 23 12 23Z"></path></svg>
+            News
+          </h2>
+          <ul>
+            <!-- <li><span class="tag">Aug 2025</span> Our paper on <em>Fourier-Aware Diffusion for Time-Series Imputation</em> was accepted to <strong>TKDD</strong>.</li>
+            <li><span class="tag">Jul 2025</span> Presented a tutorial on <em>Machine Learning for Graph Data Management</em> at <strong>VLDB</strong>.</li>
+            <li><span class="tag">May 2025</span> Released our open-source library for time-series imputation.</li> -->
+          </ul>
+
+          <h2>
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path fill="url(#h2grad)" d="M3.46 15.11a0.27 0.27 0 0 0 -0.22 -0.11 0.25 0.25 0 0 0 -0.21 0.13l-2.4 4.14a1 1 0 0 0 1 1.48l2.39 -0.4 0.83 2.29a1 1 0 0 0 1.8 0.16l2 -3.34a0.22 0.22 0 0 0 0 -0.21 0.25 0.25 0 0 0 -0.15 -0.15 10.22 10.22 0 0 1 -5.04 -3.99Z" fill="#000000" stroke-width="1"></path>
+              <path fill="url(#h2grad)" d="M23.37 19.27 21 15.1a0.24 0.24 0 0 0 -0.21 -0.12 0.24 0.24 0 0 0 -0.21 0.11 10.3 10.3 0 0 1 -5.07 4 0.28 0.28 0 0 0 -0.15 0.15 0.22 0.22 0 0 0 0 0.21l2 3.36a1 1 0 0 0 1.8 -0.17l0.83 -2.29 2.39 0.4a1 1 0 0 0 1 -0.41 1 1 0 0 0 -0.01 -1.07Z" fill="#000000" stroke-width="1"></path>
+              <path fill="url(#h2grad)" d="M20.73 9.46A8.75 8.75 0 1 0 12 18.21a8.75 8.75 0 0 0 8.73 -8.75Zm-5.25 3.42a0.59 0.59 0 0 1 -0.85 0.74l-2.52 -1.42a0.28 0.28 0 0 0 -0.25 0l-2.52 1.42a0.59 0.59 0 0 1 -0.85 -0.74l1 -2.36a0.25 0.25 0 0 0 -0.06 -0.28L7.61 8.42a0.56 0.56 0 0 1 0.39 -1h2.12a0.25 0.25 0 0 0 0.23 -0.14L11.45 5a0.61 0.61 0 0 1 1.07 0l1.1 2.27a0.24 0.24 0 0 0 0.22 0.14H16a0.56 0.56 0 0 1 0.4 1l-1.9 1.83a0.26 0.26 0 0 0 -0.05 0.28Z" fill="#000000" stroke-width="1"></path>
+            </svg>
+            Honors & Awards
+          </h2>
+          <ul>
+            <!-- <li>UNSW Postgraduate Research Scholarship</li>
+            <li>Best Student Paper Award, XYZ Conference</li> -->
+          </ul>
+
+          <h2>
+            <svg viewBox="0 0 24 24" fill="currentColor"><path fill="url(#h2grad)" d="m22.75 8.3076 -9.7954 -4.24412L3.15912 8.3076v7.2358L1.25 17.4525v2.0532l2.65909 2.6591 2.65909 -2.6591v-2.0532l-1.90906 -1.909v-4.9763l8.29548 3.5942L22.75 9.91727V8.3076ZM6.87273 13.1568l0.00699 2.8244 6.07358 2.847 6.0841 -2.8473 -0.0007 -2.8242 -5.784 2.506 -0.2981 0.1292 -0.2982 -0.1292 -5.78367 -2.5059Z"/></svg>
+            Education
+          </h2>
+          <ul>
+            <!-- <li><strong>PhD in Computer Science</strong>, UNSW Sydney — 2024–Present</li>
+            <li><strong>M.Sc. in Computer Science</strong>, UNSW Sydney — 2021–2023</li>
+            <li><strong>M.Sc. in Computer Science</strong>, UNSW Sydney — 2021–2023</li> -->
+          </ul>
+        </section>
+
+        <!-- Publications Panel -->
+        <section id="publications" class="tab-panel" role="tabpanel" aria-labelledby="tab-publications">
+          <h1>Publications</h1>
+          <ul class="pub-list">
+            <!-- <li class="pub-item">
+              <div class="title">Fourier-Aware Diffusion for Multivariate Time-Series Imputation</div>
+              <div class="meta">Runze Li, et al. <strong>ACM TKDD</strong>, 2025</div>
+              <div class="meta"><a href="#">PDF</a> · <a href="#">Code</a> · <a href="#">BibTeX</a></div>
+            </li>
+            <li class="pub-item">
+              <div class="title">Survey: Subgraph Isomorphism, Counting, and Matching</div>
+              <div class="meta">Runze Li, et al. <strong>arXiv</strong>, 2024</div>
+              <div class="meta"><a href="#">PDF</a> · <a href="#">Slides</a></div>
+            </li> -->
+          </ul>
+        </section>
+
+        <!-- Projects Panel -->
+        <section id="projects" class="tab-panel" role="tabpanel" aria-labelledby="tab-projects">
+          <h1>Projects</h1>
+          <!-- <div class="project-grid">
+            <article class="card">
+              <span class="tag">Imputation</span>
+              <h3>FADTI: Fourier-Aware Diffusion Time-Series Imputation</h3>
+              <p>Frequency-aware generative modeling for irregularly sampled time-series with structured masks and resource constraints.</p>
+              <p class="muted"><a href="#">GitHub</a> · <a href="#">Docs</a></p>
+            </article>
+            <article class="card">
+              <span class="tag">Graphs</span>
+              <h3>Subgraph Matching Benchmark</h3>
+              <p>Unified benchmark and survey for exact and learning-based subgraph matching/counting algorithms.</p>
+              <p class="muted"><a href="#">Website</a> · <a href="#">Paper</a></p>
+            </article>
+          </div> -->
+        </section>
+      </section>
+
+      <footer>
+        © <span id="year"></span> Runze Li · Last updated on <time id="lastUpdated"></time>
+      </footer>
+    </main>
   </div>
 
   <script>
-    // Replace placeholders with fragments
-    async function inject(slotId, url, selector){
-      const slot = document.getElementById(slotId);
-      try{
-        const res = await fetch(url, {credentials:'same-origin'});
-        const html = await res.text();
-        const doc = new DOMParser().parseFromString(html, 'text/html');
-        const node = doc.querySelector(selector) || doc.body.firstElementChild;
-        slot.outerHTML = node.outerHTML;
-      }catch(e){
-        slot.innerHTML = '<div style="padding:16px;color:#ef4444">Failed to load '+url+'</div>';
-      }
+    // THEME
+    const THEME_KEY = 'theme';
+    function preferredTheme() {
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved === 'light' || saved === 'dark') return saved;
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-    function enableSpa(){
-      const header = document.getElementById('header') || document.querySelector('.header');
-      if(!header) return;
-      header.addEventListener('click', function(e){
-        const a = e.target.closest('a[data-spa]');
-        if(!a) return;
-        const href = a.getAttribute('href');
-        if(!href) return;
-        // External or anchor only? allow default
-        if(/^https?:\/\//i.test(href) || href.startsWith('#')) return;
-        e.preventDefault();
-        loadPage(href);
-        history.pushState(null, '', href);
-      });
-      window.addEventListener('popstate', () => {
-        loadPage(location.pathname.split('/').pop() || 'index.html');
-      });
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
     }
-    async function loadPage(url){
-      const slot = document.getElementById('content-slot');
-      try{
-        const res = await fetch(url, {credentials: 'same-origin'});
-        const html = await res.text();
-        const doc = new DOMParser().parseFromString(html, 'text/html');
-        const content = doc.querySelector('#content');
-        if(content){
-          slot.innerHTML = content.innerHTML;
-          // scroll to top of content
-          slot.scrollIntoView({behavior:'smooth', block:'start'});
-        }else{
-          // Fallback: full navigate
-          location.href = url;
-        }
-      }catch(e){
-        slot.innerHTML = '<div class="wrap"><div class="card" style="color:#ef4444">Failed to load '+url+'. Open the page directly.</div></div>';
-      }
-    }
+    // Initialize theme
+    applyTheme(preferredTheme());
 
-    // Inject fragments first, then enable SPA
-    inject('sidebar-slot','./sidebar.html','#sidebar');
-    inject('header-slot','./header.html','#header').then(enableSpa);
+    // Toggle handler
+    const themeBtn = document.getElementById('themeToggle');
+    themeBtn?.addEventListener('click', () => {
+      const cur = document.documentElement.getAttribute('data-theme') || 'light';
+      const next = cur === 'light' ? 'dark' : 'light';
+      applyTheme(next); localStorage.setItem(THEME_KEY, next);
+    });
 
-    // If a deep link to publications/projects is opened on index, load it
-    const path = location.pathname.split('/').pop();
-    if(path === 'publications.html' || path === 'projects.html'){
-      loadPage(path);
+    // TAB logic
+    const tabs = document.querySelectorAll('.tab-btn');
+    const panels = document.querySelectorAll('.tab-panel');
+    function activateTab(id) {
+      panels.forEach(p => p.classList.toggle('active', p.id === id));
+      tabs.forEach(t => {
+        const selected = t.dataset.tab === id;
+        t.classList.toggle('active', selected);
+        t.setAttribute('aria-selected', String(selected));
+      });
+      if (location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
     }
+    tabs.forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); activateTab(btn.dataset.tab); }));
+    window.addEventListener('hashchange', () => {
+      const id = location.hash.replace('#', '') || 'home';
+      if (document.getElementById(id)) activateTab(id);
+    });
+    activateTab((location.hash && location.hash.slice(1)) || 'home');
+
+    // Sidebar toggle (mobile)
+    const toggle = document.getElementById('toggleSidebar');
+    const sidebar = document.getElementById('sidebar');
+    toggle?.addEventListener('click', () => {
+      const isHidden = sidebar.style.display === 'none';
+      sidebar.style.display = isHidden ? '' : 'none';
+    });
+
+    // Footer helpers
+    document.getElementById('year').textContent = new Date().getFullYear();
+    document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString();
   </script>
 </body>
 </html>
