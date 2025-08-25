@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects — Runze Li</title>
+  <meta name="theme-color" content="#34d399" />
+  <style>
+    :root{ --bg:#f6fbff; --panel:#ffffff; --text:#0f172a; --muted:#475569; --border:#e2e8f0; --accent:#34d399; --accent-2:#38bdf8; --shadow:0 10px 30px rgba(2,6,23,0.06); --sidebar-w:300px; }
+    @media (prefers-color-scheme: dark){ :root{ --bg:#0b1020; --panel:#11162a; --text:#e6edf3; --muted:#9aa9b7; --border:#1f2a44; --accent:#34d399; --accent-2:#38bdf8; --shadow:0 10px 30px rgba(0,0,0,0.25);}}
+    *{box-sizing:border-box} html,body{height:100%} body{margin:0; background:var(--bg); color:var(--text); font:16px/1.65 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial}
+    a{color:var(--accent); text-decoration:none} a:hover{text-decoration:underline}
+    .layout{display:flex; min-height:100vh}
+    .sidebar{ position:sticky; top:0; align-self:flex-start; width:var(--sidebar-w); min-height:100vh; padding:28px 22px; border-right:1px solid var(--border); background:linear-gradient(180deg, color-mix(in srgb, var(--panel) 92%, white), var(--panel)); }
+    .brand{display:flex; align-items:center; gap:12px; margin-bottom:18px}
+    .avatar{width:84px; height:84px; border-radius:16px; object-fit:cover; border:1px solid var(--border); box-shadow:var(--shadow)}
+    h1{font-size:22px; margin:0}
+    .role{color:var(--muted); font-size:14px; margin-top:4px}
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
+    .chip{display:inline-flex; align-items:center; gap:8px; padding:7px 10px; border-radius:999px; border:1px solid var(--border); background:var(--panel); font-weight:600}
+    .accent{background:linear-gradient(120deg, var(--accent), var(--accent-2)); -webkit-background-clip:text; background-clip:text; color:transparent; font-weight:800}
+
+    .main{flex:1; display:flex; flex-direction:column; min-width:0;}
+    .header{ position:sticky; top:0; z-index:10; backdrop-filter:saturate(180%) blur(8px); background:color-mix(in srgb, var(--bg) 85%, transparent); border-bottom:1px solid var(--border); }
+    .nav{max-width:1100px; margin:0 auto; display:flex; align-items:center; gap:10px; padding:10px 20px}
+    .nav a{padding:8px 12px; border-radius:10px; color:var(--muted); font-weight:700}
+    .nav a:hover{background:var(--panel); color:var(--text); text-decoration:none; border:1px solid var(--border)}
+    .content{flex:1; padding:26px 24px 40px}
+    .wrap{max-width:1100px; margin:0 auto}
+    .card{background:var(--panel); border:1px solid var(--border); padding:18px; border-radius:16px; box-shadow:var(--shadow)}
+    .grid{display:grid; gap:16px} @media(min-width:720px){ .grid{grid-template-columns:1fr 1fr} }
+    .project b{font-size:16px}
+    .project p{margin:6px 0 0; color:var(--muted)}
+    .chip svg { width: 16px; height: 16px; }
+
+    @media (max-width: 920px){
+      :root{ --sidebar-w: 100%; }
+      .layout{flex-direction:column}
+      .sidebar{position:static; min-height:auto; border-right:none; border-bottom:1px solid var(--border)}
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <div id="sidebar-slot"></div>
+
+    <div class="main">
+      <div id="header-slot"></div>
+
+      <div id="content" class="content">
+        <div class="wrap">
+          <div class="grid">
+            <div class="card project">
+              <b>Under Construction</b>
+              <p>Under construction.</p>
+              <div><a href="#">Repo</a> · <a href="#">Docs</a></div>
+            </div>
+            <!-- <div class="card project">
+              <b>TimeMixer++ Imputation Bench</b>
+              <p>Unified pipeline for diffusion-based imputation with frequency-bias modules (DFT/STFT/FrSST).</p>
+              <div><a href="#">Repo</a> · <a href="#">Docs</a></div>
+            </div>
+            <div class="card project">
+              <b>WCM Pretraining Toolkit</b>
+              <p>Whole-cell modeling front-task datasets: transcription modules, RNAP/NTP constraints, alignment tools.</p>
+              <div><a href="#">Repo</a></div>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function inject(slotId, url, selector){
+      const slot = document.getElementById(slotId);
+      try{
+        const res = await fetch(url, {credentials:'same-origin'});
+        const html = await res.text();
+        const doc = new DOMParser().parseFromString(html, 'text/html');
+        const node = doc.querySelector(selector) || doc.body.firstElementChild;
+        slot.outerHTML = node.outerHTML;
+      }catch(e){
+        slot.innerHTML = '<div style="padding:16px;color:#ef4444">Failed to load '+url+'</div>';
+      }
+    }
+    inject('sidebar-slot','./sidebar.html','#sidebar');
+    inject('header-slot','./header.html','#header');
+  </script>
+</body>
+</html>
