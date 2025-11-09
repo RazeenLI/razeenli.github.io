@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600" width="1600" height="800" role="img" aria-labelledby="title desc">
+  <title id="title">Under Construction / 施工中</title>
+  <desc id="desc">Cute bilingual construction sign with rounded corners and hazard stripes.</desc>
+  <defs>
+    <style>
+      :root {
+        --ink:#27272a;
+        --white:#ffffff;
+        --stripe:#222222;
+        --stripe-bg:#ffd54f;
+        --accent:#fecaca;     /* soft pink */
+        --accent2:#bfdbfe;    /* soft blue */
+        --shadow:rgba(0,0,0,.08);
+      }
+      .txt { font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Noto Sans SC", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif; fill: var(--ink); }
+    </style>
+    <!-- diagonal hazard stripes -->
+    <pattern id="diag" width="48" height="48" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="48" height="48" fill="var(--stripe-bg)" />
+      <rect width="24" height="48" fill="var(--stripe)" />
+    </pattern>
+  </defs>
+
+  <!-- soft ground shadow -->
+  <ellipse cx="600" cy="520" rx="420" ry="28" fill="var(--shadow)"/>
+
+  <!-- striped border (outer) -->
+  <rect x="80" y="80" width="1040" height="400" rx="48" fill="url(#diag)"/>
+
+  <!-- inner white panel -->
+  <rect x="112" y="112" width="976" height="336" rx="36" fill="var(--white)" stroke="var(--ink)" stroke-width="6"/>
+
+  <!-- cute sparkles/hearts -->
+  <g>
+    <!-- star top-left -->
+    <g transform="translate(130,130)" fill="var(--accent2)">
+      <path d="M18 0 L22 14 L36 18 L22 22 L18 36 L14 22 L0 18 L14 14 Z"/>
+    </g>
+    <!-- heart top-right -->
+    <g transform="translate(1030,140)" fill="var(--accent)">
+      <path d="M24 12c0-6.6-8.2-10-12-4.8C8.2 2 0 5.4 0 12c0 9.6 12 16 12 16s12-6.4 12-16z"/>
+    </g>
+    <!-- small star bottom-left -->
+    <g transform="translate(160,420)" fill="var(--accent2)">
+      <path d="M10 0 L12 8 L20 10 L12 12 L10 20 L8 12 L0 10 L8 8 Z"/>
+    </g>
+    <!-- small heart bottom-right -->
+    <g transform="translate(1000,420)" fill="var(--accent)">
+      <path d="M18 9c0-4.9-6.1-7.4-9-3.6C6.1 1.6 0 4.1 0 9c0 7.1 9 11.8 9 11.8S18 16.1 18 9z"/>
+    </g>
+  </g>
+
+  <!-- texts -->
+  <g class="txt" text-anchor="middle">
+    <text x="600" y="300" font-size="120" font-weight="900">施工中</text>
+    <text x="600" y="370" font-size="56" font-weight="800" letter-spacing="3">UNDER CONSTRUCTION</text>
+  </g>
+</svg>
