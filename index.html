@@ -8,209 +8,7 @@
   <link rel="icon" href="assets/rl-logo-light.svg" >
 <!--  <link rel="icon" href="assets/rl-logo-dark.svg"  media="(prefers-color-scheme: dark)">-->
   <meta name="description" content="Personal academic profile of a PhD candidate in the School of Computer Science and Engineering, UNSW Sydney." />
-  <style>
-    :root { --radius: 14px; }
-
-    /* LIGHT (Day) */
-    :root[data-theme="light"] {
-      --bg: #f8fafc;            /* slate-50 */
-      --panel: #ffffff;         /* white */
-      --muted: #4b5563;         /* gray-600 */
-      --text: #0f172a;          /* slate-900 */
-      --border: #e5e7eb;        /* gray-200 */
-      --chip-bg: #f1f5f9;       /* slate-100 */
-      --accent1: #34d399;       /* emerald-400 */
-      --accent2: #38bdf8;       /* sky-400 */
-      --link: #0369a1;
-    }
-
-    /* DARK (Night) */
-    :root[data-theme="dark"] {
-      --bg: #0b0c10;
-      --panel: #111218;
-      --muted: #8086a3;
-      --text: #e6e9f2;
-      --border: #202433;
-      --chip-bg: #171a22;
-      --accent1: #059669;       /* emerald-600 (darker pair of #34d399) */
-      --accent2: #0284c7;       /* sky-600 (darker pair of #38bdf8) */
-      --link: #7dd3fc;
-    }
-
-    * { box-sizing: border-box; }
-    html, body { height: 100%; }
-    body {
-      margin: 0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
-        Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.55;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent2); outline-offset: 2px; }
-
-    .container { display: flex; min-height: 100vh; gap: 0; }
-
-    /* Sidebar */
-    .sidebar {
-      position: sticky; top: 0; align-self: flex-start;
-      width: 300px; min-width: 260px; max-width: 340px;
-      padding: 28px 22px;
-      background: var(--panel);
-      border-right: 1px solid var(--border);
-      height: 100vh; overflow: auto;
-    }
-    .brand { display: flex; flex-direction: column; align-items: center; gap: 16px; text-align: center; }
-    .avatar { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); background: var(--chip-bg); }
-    .name { font-size: 1.25rem; font-weight: 700; letter-spacing: .2px; }
-    .role { font-size: .95rem; color: var(--muted); }
-    .accent { background: linear-gradient(90deg, var(--accent1), var(--accent2)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; color: transparent; font-weight: 700;             /* 可选，加粗更显眼 */
-    }
-
-
-    .chips { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 18px; }
-    .chip { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: var(--chip-bg); border: 1px solid var(--border); transition: transform .12s ease, border-color .12s ease, background .12s ease; font-size: .95rem; }
-    .chip:hover { transform: translateY(-1px); border-color: color-mix(in hsl, var(--accent2) 45%, var(--border)); background: color-mix(in hsl, var(--chip-bg) 80%, var(--accent2)); }
-    .chip svg { width: 18px; height: 18px; flex: 0 0 auto; opacity: .9; color: var(--accent2); }
-
-    .sidebar-section { margin-top: 26px; border-top: 1px dashed var(--border); padding-top: 18px; }
-    .sidebar-section h3 { margin: 0 0 10px; font-size: .9rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; }
-    .sidebar p.small { margin: 0; font-size: .9rem; color: var(--muted); }
-
-    /* Main */
-    .main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-
-    .header { position: sticky; top: 0; z-index: 10; backdrop-filter: saturate(1.1) blur(10px); background: color-mix(in hsl, var(--panel) 88%, transparent); border-bottom: 1px solid var(--border); }
-
-    .toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 28px; }
-    .site-title { font-size: 1rem; font-weight: 600; letter-spacing: .2px; opacity: .9; }
-
-    .nav { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-    .tab-btn { appearance: none; border: 1px solid var(--border); background: color-mix(in hsl, var(--panel) 90%, transparent); color: inherit; padding: 8px 12px; border-radius: 10px; cursor: pointer; font-size: .95rem; letter-spacing: .2px; transition: transform .08s ease, background .12s ease, border-color .12s ease; }
-    .tab-btn:hover { transform: translateY(-1px); background: color-mix(in hsl, var(--panel) 75%, var(--accent2)); }
-    .tab-btn[aria-selected="true"], .tab-btn.active { background: color-mix(in hsl, var(--panel) 60%, var(--accent2)); border-color: var(--accent2); box-shadow: inset 0 1px 0 color-mix(in hsl, var(--accent2) 30%, transparent); color: var(--text); }
-
-    .theme-toggle { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--border); background: color-mix(in hsl, var(--panel) 90%, transparent); padding: 8px 10px; border-radius: 10px; cursor: pointer; }
-    .theme-toggle:hover { background: color-mix(in hsl, var(--panel) 75%, var(--accent1)); border-color: var(--accent1); }
-    .theme-toggle svg { width: 18px; height: 18px; }
-    :root[data-theme="light"] .icon-moon { display: none; }
-    :root[data-theme="dark"] .icon-sun { display: none; }
-
-    /* Centered content with max width */
-    .content { width: min(100%, 1080px); margin-inline: auto; padding: 32px 32px 56px; }
-
-
-    h2 svg { vertical-align: middle; align-items: center; width: 1em; height: 1em;}
-
-
-    /* Panels */
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
-
-    /* Typography */
-    h1 { font-size: clamp(1.6rem, 2.5vw, 2rem); line-height: 1.2; margin: 4px 0 20px; letter-spacing: -.02em; }
-    h2 { font-size: 1.25rem; margin: 34px 0 16px; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-    h3 { font-size: 1.05rem; margin: 18px 0 8px; }
-    p { margin: 8px 0 12px; }
-    ul { margin: 8px 0 18px 1.2rem; padding: 0; }
-    li { margin: 6px 0; }
-    .muted { color: var(--muted); }
-    .tag { display: inline-block; padding: 2px 8px; border: 1px solid var(--border); border-radius: 999px; font-size: .8rem; background: color-mix(in hsl, var(--panel) 80%, var(--accent2)); }
-
-    /* Cards & lists */
-    .pub-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
-    .pub-item { padding: 18px 20px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--panel); }
-    .pub-item .title { font-size: 1.05rem; font-weight: 650; line-height: 1.4; }
-    .pub-item .meta { font-size: .92rem; color: var(--muted); margin-top: 4px; }
-    .pub-item .meta a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
-    .research-footer { margin-top: 24px; padding: 22px 24px; border: 1px solid var(--border); border-radius: var(--radius); background: color-mix(in srgb, var(--panel) 88%, var(--accent2)); }
-    .research-footer p { margin: 0 0 10px; color: var(--muted); }
-    .research-footer a { color: var(--link); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
-
-    .intro { max-width: 72ch; }
-    .intro a, .content p > a { color: var(--link); text-decoration: underline; text-underline-offset: 2px; }
-    .about-hero { position: relative; isolation: isolate; overflow: hidden; padding: 32px; border: 1px solid var(--border); border-radius: calc(var(--radius) + 6px); background: var(--panel); }
-    .about-hero::before { content: ""; position: absolute; z-index: -1; width: 430px; height: 430px; right: -140px; top: -210px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent2) 24%, transparent) 0 28%, transparent 29% 41%, color-mix(in srgb, var(--accent1) 19%, transparent) 42% 55%, transparent 56% 68%, color-mix(in srgb, var(--accent2) 12%, transparent) 69% 70%, transparent 71%); }
-    .about-hero::after { content: ""; position: absolute; z-index: -1; width: 310px; height: 310px; right: 12px; top: 38px; border-radius: 50%; background: radial-gradient(circle, color-mix(in srgb, var(--accent1) 11%, transparent), transparent 68%); }
-    .about-hero h1 { margin-top: 0; }
-    .about-hero .intro { max-width: 62ch; }
-    .about-hero .intro:last-child { margin-bottom: 0; }
-
-    /* Education — static cards */
-    .edu-list { display: grid; grid-template-columns: 1fr; gap: 12px; }
-    .edu-item { padding: 14px 16px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--panel); }
-    .edu-header { display: flex; justify-content: space-between; gap: 12px; align-items: flex-start; }
-    .degree { font-weight: 700; }
-    .field, .school, .dates { opacity: .85; }
-    .dates { white-space: nowrap; font-variant-numeric: tabular-nums; }
-
-    /* News list */
-    .news-list { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 14px; }
-    .news-item { display: flex; gap: 18px; align-items: flex-start; padding: 16px; border: 1px solid var(--border); border-radius: var(--radius); background: var(--panel); }
-    .news-thumb-link { display: block; flex: 0 0 auto; }
-    .news-thumb { width: 160px; height: 105px; object-fit: cover; border-radius: calc(var(--radius) - 6px); border: 1px solid var(--border); background: var(--chip-bg); }
-    .news-body { flex: 1 1 auto; min-width: 0; }
-    .news-item h3 { margin: 0 0 6px; font-size: 1.05rem; line-height: 1.4; }
-    .news-item h3 a:hover { color: var(--link); text-decoration: underline; text-underline-offset: 3px; }
-    .news-item .news-meta { font-size: .92rem; color: var(--muted); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-    .news-actions { margin-top: 8px; }
-    .read-more { border: 0; padding: 0; background: none; border-radius: 0; text-decoration: underline; color: var(--link); }
-    .read-more:hover { transform: none; background: none; text-decoration: underline; }
-
-    /* Footer */
-    footer { border-top: 1px solid var(--border); color: var(--muted); padding: 16px 22px; font-size: .9rem; }
-
-    /* Monospace numerics for <time> elements */
-    time, .dates, .dates time, footer time, .tag time {
-      font-family: var(--mono, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
-      font-variant-numeric: tabular-nums lining-nums;
-    }
-
-    /* News detail (in-page) */
-    .article{ background: var(--panel); border:1px solid var(--border); border-radius: var(--radius); padding:20px; }
-    .back{ display:inline-flex; gap:6px; align-items:center; border-bottom:1px dashed var(--border); padding-bottom:2px; }
-    .hero{ width:100%; height:auto; display:block; border-radius:12px; border:1px solid var(--border); background:#000; margin-top:8px; }
-    .meta{ color: var(--muted); }
-    .gallery{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:12px}
-    figure{margin:0}
-    figure img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;border:1px solid var(--border);background:#000}
-    figcaption{font-size:.9rem;color:var(--muted);margin-top:6px}
-    .uc-sign { width: 100%; height: auto; display: block; }
-
-
-    /* Mobile */
-    .mobile-toggle { display: none; }
-    @media (max-width: 980px) {
-      .container { flex-direction: column; }
-      .content { padding: 28px 24px 48px; }
-      .sidebar { position: relative; width: 100%; min-width: 0; max-width: none; height: auto; padding: 20px 24px; }
-      .brand { flex-direction: row; justify-content: flex-start; text-align: left; }
-      .avatar { width: 84px; height: 84px; }
-      .chips { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-      .toolbar { padding-inline: 24px; }
-      .mobile-toggle { display: inline-flex; align-items: center; gap: 8px; background: color-mix(in hsl, var(--panel) 90%, transparent); border: 1px solid var(--border); padding: 8px 10px; border-radius: 10px; cursor: pointer; }
-    }
-    @media (max-width: 600px) {
-      .content { padding: 24px 16px 40px; }
-      .about-hero { padding: 22px; }
-      .about-hero::before { right: -280px; opacity: .6; }
-      .research-footer { padding: 18px; }
-      .sidebar { padding: 18px 16px; }
-      .chips { grid-template-columns: 1fr; }
-      .toolbar { align-items: flex-start; flex-direction: column; padding: 12px 16px; }
-      .nav { width: 100%; }
-      .tab-btn { padding: 7px 10px; font-size: .9rem; }
-      .theme-toggle { margin-left: auto; }
-      .news-item { flex-direction: column; gap: 12px; }
-      .news-thumb-link, .news-thumb { width: 100%; }
-      .news-thumb { height: auto; aspect-ratio: 16 / 9; }
-      .edu-header { flex-direction: column; gap: 4px; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
   <div class="container">
@@ -270,11 +68,11 @@
       <header class="header" role="banner">
         <div class="toolbar">
           <span class="site-title"><span class="accent">Runze Li</span> · Academic Profile</span>
-          <div class="nav" role="tablist" aria-label="Primary">
-            <button class="tab-btn" id="tab-home" role="tab" aria-controls="home" aria-selected="true" data-tab="home">Home</button>
-            <button class="tab-btn" id="tab-publications" role="tab" aria-controls="publications" aria-selected="false" data-tab="publications">Publications</button>
-            <button class="tab-btn" id="tab-projects" role="tab" aria-controls="projects" aria-selected="false" data-tab="projects">Projects</button>
-            <button class="tab-btn" id="tab-news" role="tab" aria-controls="news" aria-selected="false" data-tab="news">News</button>
+          <nav class="nav" aria-label="Primary">
+            <a class="tab-btn active" id="tab-home" href="index.html" aria-current="page">Home</a>
+            <a class="tab-btn" id="tab-publications" href="publications.html">Publications</a>
+            <a class="tab-btn" id="tab-projects" href="projects.html" hidden>Projects</a>
+            <a class="tab-btn" id="tab-news" href="news.html">News</a>
             <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
               <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#h2grad)"  d="M6.76 4.84 5.34 3.42 3.92 4.84l1.42 1.42 1.42-1.42Zm10.48 14.32 1.42 1.42 1.42-1.42-1.42-1.42-1.42 1.42ZM12 4V2h-0v2h0Zm0 18v-2h0v2h0ZM4 12H2v0h2v0Zm18 0h-2v0h2v0ZM6.76 19.16l-1.42 1.42 1.42 1.42 1.42-1.42-1.42-1.42Zm10.48-14.32 1.42-1.42-1.42-1.42-1.42 1.42 1.42 1.42ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Z"/></svg>
               <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#h2grad)" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
@@ -283,59 +81,27 @@
               <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="url(#h2grad)" d="M3 6h18v2H3V6Zm0 5h18v2H3v-2Zm0 5h18v2H3v-2Z"/></svg>
               Sidebar
             </button> -->
-          </div>
+          </nav>
         </div>
       </header>
 
       <section class="content">
-        <!-- Home Panel -->
         <section id="home" class="tab-panel active" role="tabpanel" aria-labelledby="tab-home">
           <div class="about-hero">
             <h1>About Me</h1>
-            <p class="intro">I am a PhD candidate in the School of Computer Science and Engineering at UNSW Sydney, supervised by Professors Wenjie Zhang and Hanchen Wang. I am also part of the <a href="https://macsys.org/staff/runze-li/" target="_blank" rel="noopener">MACSYS Centre of Excellence</a>.</p>
-            <p class="intro">My research connects machine learning with data systems. I work on recovering missing values in multivariate time series and on graph problems such as subgraph matching and counting. I am especially interested in methods that can support biological data analysis and whole-cell modelling.</p>
+            <p class="intro">I am a PhD candidate in the School of Computer Science and Engineering at UNSW Sydney, supervised by Professors Wenjie Zhang and Hanchen Wang. I am a member of the <a href="https://macsys.org/staff/runze-li/" target="_blank" rel="noopener">MACSYS Centre of Excellence</a> and the <a href="https://unswdb.github.io/index.html" target="_blank" rel="noopener">UNSW Data and Knowledge Research Group (DKR)</a>, and am affiliated with the <a href="https://sydil.org/" target="_blank" rel="noopener">Sydney Data Intelligence Lab (SyDIL)</a>.</p>
+            <p class="intro">My research lies at the intersection of machine learning and data systems. I develop learning-based methods for multivariate time-series imputation, schema matching, and graph analytics, with a particular interest in reliable AI for scientific and biological data. More broadly, I am interested in applying AI and data-centric methods to biological modelling and whole-cell systems.</p>
+            <div class="science-visual">
+              <img src="assets/placeholders/home-living-data.png" alt="Ink-wash illustration connecting relational data, artificial intelligence, and virtual-cell modelling">
+            </div>
           </div>
 
           <h2>
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill="url(#h2grad)" d="M12 23C7.85786 23 4.5 19.6421 4.5 15.5C4.5 13.3462 5.40786 11.4045 6.86179 10.0366C8.20403 8.77375 11.5 6.49951 11 1.5C17 5.5 20 9.5 14 15.5C15 15.5 16.5 15.5 19 13.0296C19.2697 13.8032 19.5 14.6345 19.5 15.5C19.5 19.6421 16.1421 23 12 23Z"></path></svg>
             Recent News
           </h2>
-          <ul class="news-list">
-            <li class="news-item">
-              <a class="news-thumb-link" href="#news/macsys-workshop3" aria-hidden="true" tabindex="-1">
-                <img class="news-thumb" src="assets/news/2026-MACSYS-workshop3/MACSYS-workshop3-presentation-web.jpg" alt="Runze Li presenting at the MACSYS Theme 3 Workshop" loading="lazy">
-              </a>
-              <div class="news-body">
-                <h3><a href="#news/macsys-workshop3">MACSYS Theme 3 Workshop at UNSW</a></h3>
-                <div class="news-meta"><time datetime="2026-08-06">Aug 6–7, 2026</time> · UNSW Sydney</div>
-                <p class="muted">I presented my work at the MACSYS Theme 3 workshop on automating whole-cell modelling and joined discussions with researchers across disciplines.</p>
-                <div class="news-actions"><a class="read-more" href="#news/macsys-workshop3">Read more</a></div>
-              </div>
-            </li>
-            <li class="news-item">
-              <a class="news-thumb-link" href="https://adc-conference.github.io/2025/" target="_blank" rel="noopener" aria-label="ADC 2025 conference website">
-                <img class="news-thumb" src="assets/news/2025-ADC/ADC.jpg" alt="Presentation at ADC 2025 in Sydney" loading="lazy">
-              </a>
-              <div class="news-body">
-                <h3><a href="https://adc-conference.github.io/2025/" target="_blank" rel="noopener">Australasian Database Conference (ADC 2025)</a></h3>
-                <div class="news-meta"><time datetime="2025-12-04">Dec 4–6, 2025</time> · Sydney, NSW</div>
-                <p class="muted">I attended ADC 2025 in Sydney and helped prepare the Sydney program and provide IT support during the conference.</p>
-                <div class="news-actions"><a class="read-more" href="https://adc-conference.github.io/2025/" target="_blank" rel="noopener">Conference website</a></div>
-              </div>
-            </li>
-            <li class="news-item">
-              <a class="news-thumb-link" href="https://macsys.org/event/macsys-centre-retreat/" target="_blank" rel="noopener" aria-label="MACSYS Centre Retreat event page">
-                <img class="news-thumb" src="assets/news/2025-MACSYS-retreat/MACSYS-retreat-1.JPG" alt="Group photo at the 2025 MACSYS Centre Retreat" loading="lazy">
-              </a>
-              <div class="news-body">
-                <h3><a href="https://macsys.org/event/macsys-centre-retreat/" target="_blank" rel="noopener">MACSYS Centre Retreat 2025</a></h3>
-                <div class="news-meta"><time datetime="2025-10-29">Oct 29–31, 2025</time> · Cape Schanck, Victoria</div>
-                <p class="muted">I participated in the MACSYS Centre Retreat, where members shared their work and discussed future research directions.</p>
-                <div class="news-actions"><a class="read-more" href="https://macsys.org/event/macsys-centre-retreat/" target="_blank" rel="noopener">Event details</a></div>
-              </div>
-            </li>
-          </ul>
-          <p><a href="#news">View all news →</a></p>
+          <ul class="news-list" id="recentNewsList" tabindex="0" aria-label="Recent news. Scroll horizontally to browse."></ul>
+          <p><a href="news.html">View all news →</a></p>
 
           <h2>
             <svg viewBox="0 0 24 24" fill="currentColor"><path fill="url(#h2grad)" d="m22.75 8.3076 -9.7954 -4.24412L3.15912 8.3076v7.2358L1.25 17.4525v2.0532l2.65909 2.6591 2.65909 -2.6591v-2.0532l-1.90906 -1.909v-4.9763l8.29548 3.5942L22.75 9.91727V8.3076ZM6.87273 13.1568l0.00699 2.8244 6.07358 2.847 6.0841 -2.8473 -0.0007 -2.8242 -5.784 2.506 -0.2981 0.1292 -0.2982 -0.1292 -5.78367 -2.5059Z"/></svg>
@@ -344,6 +110,7 @@
           <div class="edu-list">
             <article class="edu-item">
               <header class="edu-header">
+              <img class="edu-logo" src="assets/placeholders/unsw-mark.png" alt="UNSW Sydney logo">
                 <div>
                   <div class="degree">Doctor of Philosophy - PhD</div>
                   <div class="field">Computer Science &amp; Engineering</div>
@@ -361,6 +128,7 @@
 
             <article class="edu-item">
               <header class="edu-header">
+              <img class="edu-logo" src="assets/placeholders/unsw-mark.png" alt="UNSW Sydney logo">
                 <div>
                   <div class="degree">Master of Science - MS</div>
                   <div class="field">Information Technology &amp; Data Science</div>
@@ -375,6 +143,7 @@
 
             <article class="edu-item">
               <header class="edu-header">
+              <img class="edu-logo" src="assets/placeholders/unsw-mark.png" alt="UNSW Sydney logo">
                 <div>
                   <div class="degree">Bachelor of Engineering - BE</div>
                   <div class="field">Computer Science</div>
@@ -392,162 +161,7 @@
 <!--            <li><strong>M.Sc. in Computer Science</strong>, UNSW Sydney — 2021–2023</li> &ndash;&gt;-->
 <!--          </ul>-->
         </section>
-
-        <!-- Publications Panel -->
-        <section id="publications" class="tab-panel" role="tabpanel" aria-labelledby="tab-publications">
-          <h1>Publications</h1>
-          <ul class="pub-list">
-            <li class="pub-item">
-              <div class="title">FADTI: Fourier and Attention Driven Diffusion for Multivariate Time Series Imputation</div>
-              <div class="meta">Runze Li, Hanchen Wang, Wenjie Zhang, Binghao Li, Yu Zhang, Xuemin Lin, Ying Zhang · <strong>ICDM 2026</strong></div>
-              <div class="meta"><a href="https://arxiv.org/abs/2512.15116" target="_blank" rel="noopener">Read paper</a> · <a href="https://github.com/RazeenLI/FADTI" target="_blank" rel="noopener">Code</a> · <a href="assets/bib/fadti.bib" download>Download BibTeX</a></div>
-            </li>
-            <li class="pub-item">
-              <div class="title">Algorithmic and Learning-based Approaches to Subgraph Matching and Counting: A Survey</div>
-              <div class="meta">Runze Li, Hanchen Wang, Ying Zhang, Wenjie Zhang · <strong>TechRxiv preprint</strong>, 2026</div>
-              <div class="meta"><a href="https://d197for5662m48.cloudfront.net/documents/publicationstatus/299274/preprint_pdf/c9f7b853f16553b1380769ef512007b3.pdf" target="_blank" rel="noopener">Read paper (PDF)</a> · <a href="assets/bib/subgraph-survey.bib" download>Download BibTeX</a></div>
-            </li>
-            <li class="pub-item">
-              <div class="title">kNN Join for Dynamic High-Dimensional Data: A Parallel Approach</div>
-              <div class="meta">Nimish Ukey, Zhengyi Yang, Wenke Yang, Binghao Li, Runze Li · <strong>ADC 2023</strong>, LNCS</div>
-              <div class="meta"><a href="https://doi.org/10.1007/978-3-031-47843-7_1" target="_blank" rel="noopener">Read paper (publisher)</a> · <a href="assets/bib/knn-join.bib" download>Download BibTeX</a></div>
-            </li>
-          </ul>
-          <div class="research-footer">
-            <p>Interested in the implementation behind this research?</p>
-            <a href="#projects">Explore research projects →</a>
-          </div>
-        </section>
-
-        <!-- Projects Panel -->
-        <section id="projects" class="tab-panel" role="tabpanel" aria-labelledby="tab-projects">
-          <h1>Projects</h1>
-          <ul class="pub-list">
-            <li class="pub-item">
-              <div class="title">FADTI · Multivariate Time-Series Imputation</div>
-              <p>Open-source implementation of a diffusion model for multivariate time-series imputation. The repository includes setup instructions, code, datasets, and experiment scripts.</p>
-              <div class="meta"><a href="https://github.com/RazeenLI/FADTI" target="_blank" rel="noopener">View code and documentation</a> · <a href="https://arxiv.org/abs/2512.15116" target="_blank" rel="noopener">Read paper</a></div>
-            </li>
-          </ul>
-          <div class="research-footer">
-            <p>Find the papers, original sources, and BibTeX entries for this work.</p>
-            <a href="#publications">Browse publications →</a>
-          </div>
-        </section>
-
-        <!-- News Panel -->
-        <section id="news" class="tab-panel" role="tabpanel" aria-labelledby="tab-news">
-          <h1>News</h1>
-          <ul class="news-list">
-            <li class="news-item">
-              <a class="news-thumb-link" href="#news/macsys-workshop3" aria-hidden="true" tabindex="-1">
-                <img class="news-thumb" src="assets/news/2026-MACSYS-workshop3/MACSYS-workshop3-presentation-web.jpg" alt="Runze Li presenting at the MACSYS Theme 3 Workshop" loading="lazy">
-              </a>
-              <div class="news-body">
-                <h3><a href="#news/macsys-workshop3">MACSYS Theme 3 Workshop at UNSW</a></h3>
-                <div class="news-meta"><time datetime="2026-08-06">Aug 6–7, 2026</time> · UNSW Sydney</div>
-                <p class="muted">I presented my work at the MACSYS Theme 3 workshop on automating whole-cell modelling and joined discussions with researchers across disciplines.</p>
-                <div class="news-actions"><a class="read-more" href="#news/macsys-workshop3">Read more</a></div>
-              </div>
-            </li>
-            <li class="news-item">
-              <a class="news-thumb-link" href="https://adc-conference.github.io/2025/" target="_blank" rel="noopener" aria-label="ADC 2025 conference website">
-                <img class="news-thumb" src="assets/news/2025-ADC/ADC.jpg" alt="Presentation at ADC 2025 in Sydney" loading="lazy">
-              </a>
-              <div class="news-body">
-                <h3><a href="https://adc-conference.github.io/2025/" target="_blank" rel="noopener">Australasian Database Conference (ADC 2025)</a></h3>
-                <div class="news-meta"><time datetime="2025-12-04">Dec 4–6, 2025</time> · Sydney, NSW</div>
-                <p class="muted">I attended ADC 2025 in Sydney and helped prepare the Sydney program and provide IT support during the conference.</p>
-                <div class="news-actions"><a class="read-more" href="https://adc-conference.github.io/2025/" target="_blank" rel="noopener">Conference website</a></div>
-              </div>
-            </li>
-            <li class="news-item">
-              <a class="news-thumb-link" href="https://macsys.org/event/macsys-centre-retreat/" target="_blank" rel="noopener" aria-label="MACSYS Centre Retreat event page">
-                <img class="news-thumb" src="assets/news/2025-MACSYS-retreat/MACSYS-retreat-1.JPG" alt="Group photo at the 2025 MACSYS Centre Retreat" loading="lazy">
-              </a>
-              <div class="news-body">
-                <h3><a href="https://macsys.org/event/macsys-centre-retreat/" target="_blank" rel="noopener">MACSYS Centre Retreat 2025</a></h3>
-                <div class="news-meta"><time datetime="2025-10-29">Oct 29–31, 2025</time> · Cape Schanck, Victoria</div>
-                <p class="muted">I participated in the MACSYS Centre Retreat, where members shared their work and discussed future research directions.</p>
-                <div class="news-actions"><a class="read-more" href="https://macsys.org/event/macsys-centre-retreat/" target="_blank" rel="noopener">Event details</a></div>
-              </div>
-            </li>
-            <li class="news-item">
-              <a class="news-thumb-link" href="#news/macsys-launch" aria-hidden="true" tabindex="-1">
-              <img class="news-thumb" src="assets/news/2025-MACSYS-launch/MACSYS-workshop-1.JPG" alt="Group photo from the MACSYS Student &amp; EMCR Workshop" loading="lazy">
-              </a>
-              <div class="news-body">
-                <h3><a href="#news/macsys-launch">MACSYS Student & EMCR Workshop and Centre Launch</a></h3>
-                <div class="news-meta">
-<!--                  <span class="tag">-->
-                  <time datetime="2025-10-27">Oct 27-28, 2025</time> · Parkville VIC 3010
-                  <!--                  </span>-->
-                </div>
-                <p class="muted">The MACSYS Student & EMCR Workshop and Centre Launch were held in Melbourne, bringing together researchers from across institutions to network, share ideas, and celebrate the Centre’s collaborative research mission.</p>
-                <div class="news-actions">
-                  <a class="read-more" href="#news/macsys-launch" aria-label="Read more about MACSYS Student & EMCR Workshop and Centre Launch">Read more</a>
-                </div>
-              </div>
-            </li>
-          </ul>
-
-        </section>
-
-        <!-- News Detail Panel -->
-        <section id="news-detail" class="tab-panel" aria-label="News article">
-          <article class="article">
-            <p><a class="back" href="#news">← Back to News</a></p>
-            <div id="newsDetailContainer"></div>
-          </article>
-
-          <!-- 详情模板：按需复制新增更多模板 -->
-          <template id="tmpl-news-macsys-workshop3">
-            <header>
-              <h1>MACSYS Theme 3 Workshop at UNSW</h1>
-              <div class="meta"><time datetime="2026-08-06">Aug 6–7, 2026</time> · UNSW Sydney</div>
-            </header>
-            <p>I presented my work at the MACSYS Theme 3 workshop on automating whole-cell modelling and joined discussions with researchers across disciplines.</p>
-            <p><a class="read-more" href="https://macsys.org/event/theme3-workshop-unsw/" target="_blank" rel="noopener">Official event page</a></p>
-            <section class="gallery" aria-label="Workshop photos">
-              <figure><img src="assets/news/2026-MACSYS-workshop3/MACSYS-workshop3-1.JPG" alt="Group photo at the MACSYS Theme 3 Workshop" loading="lazy"></figure>
-              <figure><img src="assets/news/2026-MACSYS-workshop3/MACSYS-workshop3-presentation-web.jpg" alt="Runze Li presenting at the MACSYS Theme 3 Workshop" loading="lazy"><figcaption>Presenting at the workshop</figcaption></figure>
-            </section>
-          </template>
-          <template id="tmpl-news-macsys-launch">
-            <header>
-              <h1>MACSYS Student & EMCR Workshop and Centre Launch</h1>
-              <div class="meta"><time datetime="2025-10-29">Oct 27-28, 2025</time> · Parkville VIC 3010</div>
-            </header>
-            <img class="hero" src="assets/news/2025-MACSYS-launch/MACSYS-launch-1.JPG" alt="MACSYS Centre Launch" />
-            <h2>MACSYS Student & EMCR Workshop (Oct 27)</h2>
-            <p>A full-day workshop at the University of Melbourne where MACSYS students and EMCRs networked, shared research ideas, and explored opportunities for future collaboration, followed by dinner and mini golf.</p>
-            <h2>MACSYS Centre Launch (Oct 28)</h2>
-            <p>A formal launch event celebrating MACSYS’s collaborative research mission, featuring a headquarters tour, Welcome to Country and Smoking Ceremony, keynote speeches, and networking at the Science Gallery in Melbourne Connect.</p>
-            <h2>Useful Links</h2>
-            <ul class="news-actions">
-              <li><a class="read-more" href="https://www.linkedin.com/company/macsys-coe/posts/" aria-label="MACSYS Linkedin Posts">MACSYS Linkedin Posts</a></li>
-              <li><a class="read-more" href="https://macsys.org/event/student-emcr-workshop/" aria-label="MACSYS Student & EMCR Workshop">MACSYS Student & EMCR Workshop</a></li>
-              <li><a class="read-more" href="https://macsys.org/event/macsys-centre-launch/" aria-label="MACSYS Centre Launch">MACSYS Centre Launch</a></li>
-            </ul>
-            <!-- 图集（可选） -->
-            <section class="gallery">
-              <figure>
-                <img src="assets/news/2025-MACSYS-launch/MACSYS-launch-1.JPG" alt="MACSYS Centre Launch">
-                <figcaption>MACSYS Centre Launch</figcaption>
-              </figure>
-              <figure>
-                <img src="assets/news/2025-MACSYS-launch/MACSYS-workshop-1.JPG" alt="MACSYS Student &amp; EMCR Workshop">
-                <figcaption>MACSYS Student & EMCR Workshop</figcaption>
-              </figure>
-              <figure>
-                <img src="assets/news/2025-MACSYS-launch/MACSYS-workshop-2.JPG" alt="Participants at the MACSYS Student &amp; EMCR Workshop" loading="lazy">
-                <figcaption>MACSYS Student & EMCR Workshop</figcaption>
-              </figure>
-            </section>
-          </template>
-        </section>
       </section>
-
 
       <footer>
         © <span id="year"></span> Runze Li
@@ -555,84 +169,7 @@
     </main>
   </div>
 
-  <script>
-    // THEME
-    const THEME_KEY = 'theme';
-    function preferredTheme() {
-      const saved = localStorage.getItem(THEME_KEY);
-      if (saved === 'light' || saved === 'dark') return saved;
-      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-    function applyTheme(theme) {
-      document.documentElement.setAttribute('data-theme', theme);
-    }
-    // Initialize theme
-    applyTheme(preferredTheme());
-
-    // Toggle handler
-    const themeBtn = document.getElementById('themeToggle');
-    themeBtn?.addEventListener('click', () => {
-      const cur = document.documentElement.getAttribute('data-theme') || 'light';
-      const next = cur === 'light' ? 'dark' : 'light';
-      applyTheme(next); localStorage.setItem(THEME_KEY, next);
-    });
-
-    // TAB logic
-    const tabs = document.querySelectorAll('.tab-btn');
-    const panels = document.querySelectorAll('.tab-panel');
-    function activateTab(id, updateHash = true) {
-      panels.forEach(p => p.classList.toggle('active', p.id === id));
-      tabs.forEach(t => {
-        const selected = t.dataset.tab === id || (id === 'news-detail' && t.dataset.tab === 'news');
-        t.classList.toggle('active', selected);
-        t.setAttribute('aria-selected', String(selected));
-      });
-      if (updateHash && location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
-    }
-    tabs.forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); activateTab(btn.dataset.tab); }));
-    // window.addEventListener('hashchange', () => {
-    //   const id = location.hash.replace('#', '') || 'home';
-    //   if (document.getElementById(id)) activateTab(id);
-    // });
-    window.addEventListener('hashchange', routeFromHash);
-    routeFromHash();
-
-    // activateTab((location.hash && location.hash.slice(1)) || 'home');
-
-    // Sidebar toggle (mobile)
-    const toggle = document.getElementById('toggleSidebar');
-    const sidebar = document.getElementById('sidebar');
-    toggle?.addEventListener('click', () => {
-      const isHidden = sidebar.style.display === 'none';
-      sidebar.style.display = isHidden ? '' : 'none';
-    });
-
-    function renderNewsDetail(slug){
-      const tmpl = document.getElementById('tmpl-news-' + slug);
-      const container = document.getElementById('newsDetailContainer');
-      if (tmpl && container){
-        container.innerHTML = tmpl.innerHTML;
-        activateTab('news-detail', false);
-      } else {
-        activateTab('home'); // 未知 slug 回主页
-      }
-    }
-
-    function routeFromHash(){
-      const hash = (location.hash || '').slice(1); // 去掉 '#'
-      if (hash.startsWith('news/')){
-        const slug = hash.split('/')[1];
-        renderNewsDetail(slug);
-      } else if (document.getElementById(hash)) {
-        activateTab(hash || 'home', false);
-      } else {
-        activateTab('home');
-      }
-    }
-
-
-    // Footer helpers
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+  <script src="assets/js/news-data.js"></script>
+  <script src="assets/js/main.js"></script>
 </body>
 </html>
